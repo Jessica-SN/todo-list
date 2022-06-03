@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 
 import { ListForm } from "../ListForm";
 import { ITodo } from "./TodoList.types";
+import { ListItem } from "../ListItem";
 
 function TodoList() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -14,11 +15,27 @@ function TodoList() {
     const newTodo: ITodo = {
       id: Math.random(),
       text: itemName,
-      // TODO: Format date
       date: Date.now().toString(),
       finished: false,
     };
     setTodos([...todos, newTodo]);
+  };
+
+  const removeItem = (item: ITodo) => {
+    const updateTodos = todos.filter((todo) => todo.id !== item.id);
+    setTodos(updateTodos);
+  };
+
+  const toggleItem = (ev: React.ChangeEvent<HTMLInputElement>, item: ITodo) => {
+    const checked: boolean = ev.target.checked;
+    const { finished, ...rest } = item;
+    const checkedItems: ITodo[] = todos.map((todo) => {
+      if (todo.id === item.id) {
+        return { ...rest, finished: checked };
+      }
+      return todo;
+    });
+    setTodos(checkedItems);
   };
 
   return (
@@ -28,7 +45,14 @@ function TodoList() {
       </Typography>
       <Divider />
       {todos.map((item) => (
-        <div>{item.text}</div>
+        <ListItem
+          key={item.id}
+          date={item.date}
+          text={item.text}
+          finished={item.finished}
+          onToggle={(ev) => toggleItem(ev, item)}
+          onRemove={() => removeItem(item)}
+        />
       ))}
       <ListForm onAddNewItem={addItem} />
     </Container>
