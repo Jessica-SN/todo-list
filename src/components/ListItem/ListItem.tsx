@@ -1,10 +1,12 @@
 import React from "react";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 import { ITodo } from "../TodoList/TodoList.types";
 
@@ -24,10 +26,16 @@ function ListItem({
   return (
     <>
       <Box display="flex">
-        <Checkbox color="success" checked={finished} onChange={onToggle} />
-        <div style={{ flexGrow: 1, alignSelf: "center", textAlign: "start" }}>
-          {`${text} ${date}`}
-        </div>
+        <Checkbox color="primary" checked={finished} onChange={onToggle} />
+        <Stack
+          flexGrow={1}
+          direction="row"
+          alignSelf="center"
+          justifyContent="space-between"
+        >
+          <Typography>{text}</Typography>
+          <Typography color="grey.600">{date}</Typography>
+        </Stack>
         <IconButton aria-label="delete" onClick={onRemove}>
           <DeleteIcon />
         </IconButton>

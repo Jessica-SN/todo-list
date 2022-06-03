@@ -39,7 +39,7 @@ function ListForm({ onAddNewItem }: IListFormProps) {
         onChange={onChangeItem}
       />
       <IconButton aria-label="add" type="submit">
-        <AddIcon />
+        <AddIcon color="primary" />
       </IconButton>
     </Box>
   );

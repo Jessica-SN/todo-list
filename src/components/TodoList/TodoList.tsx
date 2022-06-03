@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { ListForm } from "../ListForm";
 import { ITodo } from "./TodoList.types";
 import { ListItem } from "../ListItem";
+import { formatDate } from "./utils";
 
 function TodoList() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -15,7 +16,7 @@ function TodoList() {
     const newTodo: ITodo = {
       id: Math.random(),
       text: itemName,
-      date: Date.now().toString(),
+      date: formatDate(Date.now()),
       finished: false,
     };
     setTodos([...todos, newTodo]);
