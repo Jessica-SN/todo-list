@@ -5,10 +5,11 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { ITodo } from "../TodoList/TodoList.types";
+
+import * as S from "./ListItem.styles";
 
 interface IListItemProps extends Omit<ITodo, "id"> {
   key: number;
@@ -18,7 +19,7 @@ interface IListItemProps extends Omit<ITodo, "id"> {
 
 function ListItem({
   text,
-  date,
+  created,
   finished,
   onRemove,
   onToggle,
@@ -27,15 +28,13 @@ function ListItem({
     <>
       <Box display="flex">
         <Checkbox color="primary" checked={finished} onChange={onToggle} />
-        <Stack
-          flexGrow={1}
-          direction="row"
-          alignSelf="center"
-          justifyContent="space-between"
-        >
+        <S.ItemStack direction="row">
           <Typography>{text}</Typography>
-          <Typography color="grey.600">{date}</Typography>
-        </Stack>
+          <S.DateContainer direction="column">
+            <S.DateText variant="caption">{created.time}</S.DateText>
+            <S.DateText variant="body2">{created.date}</S.DateText>
+          </S.DateContainer>
+        </S.ItemStack>
         <IconButton aria-label="delete" onClick={onRemove}>
           <DeleteIcon />
         </IconButton>

@@ -18,7 +18,7 @@ function TodoList() {
     const newTodo: ITodo = {
       id: Math.random(),
       text: itemName,
-      date: formatDate(Date.now()),
+      created: formatDate(Date.now()),
       finished: false,
     };
     setTodos([...todos, newTodo]);
@@ -50,7 +50,7 @@ function TodoList() {
       {todos.map((item) => (
         <ListItem
           key={item.id}
-          date={item.date}
+          created={item.created}
           text={item.text}
           finished={item.finished}
           onToggle={(ev) => toggleItem(ev, item)}
