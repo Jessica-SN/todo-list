@@ -7,12 +7,14 @@ import Typography from "@mui/material/Typography";
 import { ListForm } from "../ListForm";
 import { ITodo } from "./TodoList.types";
 import { ListItem } from "../ListItem";
-import { formatDate } from "./utils";
+import { formatDate, hasDuplicates } from "./utils";
 
 function TodoList() {
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   const addItem = (itemName: string) => {
+    if (hasDuplicates(todos, itemName)) return;
+
     const newTodo: ITodo = {
       id: Math.random(),
       text: itemName,
